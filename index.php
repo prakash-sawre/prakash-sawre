@@ -173,7 +173,7 @@
 						<div class="col mb-3 w-100">
 							<label class="error_div">
 								<input type="checkbox" name="tncs1" id="tncs1" value="Yes"> 
-								<span>  I agree to the Terms of Service and Privacy Policy (<a href="https://neoniche.com/privacy-policy/" target="_blank" style="color: #ff9900; position: relative; z-index: 9;">https://neoniche.com/privacy-policy</a>) of NeoNiche.</span>
+								<span>  I agree to the Terms of Service and Privacy Policy (<a href="https://id8nxt.com/privacy-policy/" target="_blank" style="color: #ff9900; position: relative; z-index: 9;">https://id8nxt.com/privacy-policy</a>) of NeoNiche.</span>
 							</label>
 						</div>
 						<!--<div class="col mb-3 w-100">
