@@ -1,17 +1,9 @@
-<?php
-
-echo "Registration : ";
-
-?>
-
-
-
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>GCP-Datadog</title>
+        <title>Microsoft | X RoundTable Conference</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css'>
 		<link rel="stylesheet" type="text/css" href="css/my-style.css">
@@ -22,9 +14,59 @@ echo "Registration : ";
         </style>
     </head>
     <body>
-               <header class="header-con">
+        <?php 
+            if(isset($_POST['submit']) && $_POST['submit'] == 'Submit') 
+            {
+            	include 'connect.php';
+            	
+            	$first_name 	= trim(mysqli_real_escape_string($conn,$_POST['first_name']));
+            	$last_name  	= trim(mysqli_real_escape_string($conn,$_POST['last_name']));
+            	$company_name	= trim(mysqli_real_escape_string($conn,$_POST['company_name']));
+            	$designation 	= trim(mysqli_real_escape_string($conn,$_POST['designation']));
+            	$email_id 		= trim(mysqli_real_escape_string($conn,$_POST['email_id']));
+            	$mobile_number 	= trim(mysqli_real_escape_string($conn,$_POST['mobile_number']));
+				$industry 		= trim(mysqli_real_escape_string($conn,$_POST['industry']));
+				$city 			= trim(mysqli_real_escape_string($conn,$_POST['city']));
+				
+            	$tncs1  		= trim(stripslashes($_POST['tncs1']));
+            	//$tncs2 		 	= trim(stripslashes($_POST['tncs2']));
+				$full_name 		= ucfirst($first_name)." ".ucfirst($last_name);
+            
+            	$utm_source	 	= isset($_POST['utm_source']) ? trim(stripslashes($_POST['utm_source'])) :'';
+            	$utm_medium	 	= isset($_POST['utm_medium']) ? trim(stripslashes($_POST['utm_medium'])) :'';
+            	$utm_campaign	= isset($_POST['utm_campaign']) ? trim(stripslashes($_POST['utm_campaign'])) :'';
+            
+            	
+            	$ip_address = $_SERVER['REMOTE_ADDR'];  	
+            	$timezone = new DateTimeZone("Asia/Kolkata");	
+            	$date 	  = new DateTime();	
+            	$date->setTimezone($timezone);		
+            	$register_date 	=	$date->format('Y:m:d');	
+            	$register_time 	=	$date->format('H:i:s');
+            	
+				$event = "gcp_datadog_bangalore";
+				
+            	if($first_name != '' && $last_name != '' && $designation != '' && $email_id != '' && $mobile_number !="" && $company_name!='' )
+            	{
+            		$check_login = $conn->query("INSERT INTO `gcp_datadog_registration`(`first_name`, `last_name`, `designation`, `email_id`, `mobile_number`, `industry`, `city`, `company_name`, `event`,`term_condition1`,`ip_address` ,`register_date`, `register_time`, `utm_source`, `utm_medium`, `utm_campaign`)VALUES('".$first_name."','".$last_name."','".$designation."','".$email_id."','".$mobile_number."','".$industry."','".$city."','".$company_name."','".$event."','".$tncs1."','".$ip_address."','".$register_date."','".$register_time."','".$utm_source."','".$utm_medium."','".$utm_campaign."')" );
+            		if(empty($check_login))
+            		{
+            			?>
+					<script type="text/javascript">alert("Sorry!something went wrong");window.location="index.php";</script>	
+						<?php
+					}else{						
+						echo '<script>window.location = "thanks.php";</script>';	
+					}
+            }else {  ?>
+        <script type="text/javascript">alert("Please fill up all the form fields!");
+            window.location="index.php";
+        </script>
+        <?php
+            }
+            } ?>
+       <header class="header-con">
 			<div class="container">
-				<div class="col-12"><img src="images/header1.jpg" class="img-fluid" alt=""/> </div>
+				<div class="col-12"><img src="images/header.jpg" class="img-fluid" alt=""/> </div>
 			</div>
 		</header>
         <section>
@@ -34,9 +76,9 @@ echo "Registration : ";
 						<!--<h4 class="text-center">Registration has been closed</h4>-->
 						
 					 <form name="addForm" id="addForm" method="post" >
-					<input type="hidden" name="utm_source" value="">
-					<input type="hidden" name="utm_medium" value="">
-					<input type="hidden" name="utm_campaign" value="">
+					<input type="hidden" name="utm_source" value="<?php echo @$_GET['utm_source']; ?>">
+					<input type="hidden" name="utm_medium" value="<?php echo @$_GET['utm_medium']; ?>">
+					<input type="hidden" name="utm_campaign" value="<?php echo @$_GET['utm_campaign']; ?>">
 					<input type="hidden" name="event" id="event" value="gcp_datadog_bangalore">
 					<div class="row row-cols-lg-2 row-cols-1">
 						<div class="col">
@@ -128,14 +170,19 @@ echo "Registration : ";
 								<input type="text" class="form-control" id="city" name="city">
 							</div>
 						</div>
-						<!--
 						<div class="col mb-3 w-100">
 							<label class="error_div">
 								<input type="checkbox" name="tncs1" id="tncs1" value="Yes"> 
-								<span>  I agree to the Terms of Service and Privacy Policy (<a href="https://id8nxt.com/privacy-policy/" target="_blank" style="color: #ff9900; position: relative; z-index: 9;">https://neoniche.com/privacy-policy</a>) of NeoNiche.</span>
+								<span>  I agree to the Terms of Service and Privacy Policy (<a href="https://neoniche.com/privacy-policy/" target="_blank" style="color: #ff9900; position: relative; z-index: 9;">https://neoniche.com/privacy-policy</a>) of NeoNiche.</span>
 							</label>
 						</div>
-						-->
+						<!--<div class="col mb-3 w-100">
+							<label class="error_div">
+								<input type="checkbox" name="tncs2" id="tncs2" value="Yes">
+								<span>  Yes, I'd like NeoNiche Integrated Solutions Pvt. Ltd. to provide my contact information to <a href="https://aws.amazon.com/legal/marketingentities/" style="color: #ff9900; position: relative; z-index: 9;" target="_blank">Amazon Web Services (AWS)</a> so AWS can share the latest AWS news and offers with me by email, post or telephone. You may unsubscribe from receiving news and offers from AWS at any time by following the instructions in the communications received. AWS handles your information as described in the <a href="https://aws.amazon.com/privacy/" target="_blank" style="color: #ff9900; position: relative; z-index: 9;">AWS Privacy Notice</a></span>
+								<div class="error text-danger" id="span_tncs2"></div>
+							</label>
+						</div>-->
 						<div class="col mt-3">
 							<div class="mb-3">
 								<input type="submit" name="submit" class="btn-default w-100 text-uppercase" value="Submit">
@@ -147,15 +194,15 @@ echo "Registration : ";
 				</div>				
             </div>
         </section>
-        <footer class="bg-dark pt-5 pb-3">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-white text-center">
-                        <p>Copyright © 2025 id8nxt. All Rights Reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+		<footer class="bg-dark pt-5 pb-3">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 text-white text-center">
+						<p>Copyright © 2025 ID8NXT All Rights Reserved.</p>
+					</div>
+				</div>
+			</div>	
+		</footer>
         <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>	
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>	
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
