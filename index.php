@@ -173,16 +173,9 @@
 						<div class="col mb-3 w-100">
 							<label class="error_div">
 								<input type="checkbox" name="tncs1" id="tncs1" value="Yes"> 
-								<span>  I agree to the Terms of Service and Privacy Policy (<a href="https://id8nxt.com/privacy-policy/" target="_blank" style="color: #ff9900; position: relative; z-index: 9;">https://id8nxt.com/privacy-policy</a>) of NeoNiche.</span>
+								<span>  I agree to the Terms of Service and Privacy Policy (<a href="https://id8nxt.com/wp-content/uploads/2023/11/Privacy_Policy_ID8NXT.pdf" target="_blank" style="color: #ff9900; position: relative; z-index: 9;">https://id8nxt.com/privacy-policy</a>) of id8nxt.</span>
 							</label>
 						</div>
-						<!--<div class="col mb-3 w-100">
-							<label class="error_div">
-								<input type="checkbox" name="tncs2" id="tncs2" value="Yes">
-								<span>  Yes, I'd like NeoNiche Integrated Solutions Pvt. Ltd. to provide my contact information to <a href="https://aws.amazon.com/legal/marketingentities/" style="color: #ff9900; position: relative; z-index: 9;" target="_blank">Amazon Web Services (AWS)</a> so AWS can share the latest AWS news and offers with me by email, post or telephone. You may unsubscribe from receiving news and offers from AWS at any time by following the instructions in the communications received. AWS handles your information as described in the <a href="https://aws.amazon.com/privacy/" target="_blank" style="color: #ff9900; position: relative; z-index: 9;">AWS Privacy Notice</a></span>
-								<div class="error text-danger" id="span_tncs2"></div>
-							</label>
-						</div>-->
 						<div class="col mt-3">
 							<div class="mb-3">
 								<input type="submit" name="submit" class="btn-default w-100 text-uppercase" value="Submit">
